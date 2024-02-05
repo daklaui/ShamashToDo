@@ -1,0 +1,43 @@
+import React, { useState } from "react";
+
+function App() {
+  const [liste, setListe] = useState([]);
+
+  const ajouterNom = (nom) => setListe([...liste, nom]);
+
+  const modifierNom = (id, nomModifie) =>
+    setListe(liste.map((nom, i) => (i === id ? nomModifie : nom)));
+
+  const supprimerNom = (id) => setListe(liste.filter((Nom, i) => i !== id));
+
+  return (
+    <div>
+      <h1>Liste des candidats </h1>
+      <ul>
+        {liste.map((Nom, id) => (
+          <li key={id}>
+            {Nom}
+            <button onClick={() => ajouterNom(id, "Nouveau Nom")}>
+              ajouter
+            </button>
+            <button onClick={() => modifierNom(id, "Nouveau Nom")}>
+              Modifier
+            </button>
+
+            <button onClick={() => supprimerNom(id)}>Supprimer</button>
+          </li>
+        ))}
+      </ul>
+      <input
+        type="text"
+        placeholder="Ajouter un nom"
+        onKeyPress={(e) => {
+          if (e.key === "Enter") ajouterNom(e.target.value);
+        }}
+      />
+      <button onClick={() => ajouterNom("Nouveau nom")}>Ajouter</button>
+    </div>
+  );
+}
+
+export default App;
